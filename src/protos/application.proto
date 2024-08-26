@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package application;
+
+service ApplicationGrpcService {
+  rpc List (ListReq) returns (ListRes);
+  rpc One (OneReq) returns (OneRes);
+}
+
+message Application {
+  string id = 1;
+  string name = 2;
+  string link = 3;
+}
+
+message ListReq {
+  repeated string ids = 1;
+  optional string search = 2;
+  optional Paginate paginate = 3;
+  optional Order orderBy = 4;
+}
+
+message Paginate {
+  optional int32 page = 1;
+  optional int32 perPage = 2;
+}
+
+message Order {
+  optional string sort = 1;
+  optional string order = 2;
+  optional string nulls = 3;
+}
+
+message ListRes {
+  repeated Application list = 1;
+  int32 totalCount = 2;
+}
+
+message OneReq {
+  string id = 1;
+}
+
+message OneRes {
+  Application application = 1;
+}

@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package locale;
+
+service LocaleGrpcService {
+  rpc List (ListReq) returns (ListRes);
+  rpc One (OneReq) returns (OneRes);
+}
+
+message Locale {
+  string id = 1;
+  string name = 2;
+}
+
+message ListReq {
+  optional Order orderBy = 1;
+}
+
+message Order {
+  optional string sort = 1;
+  optional string order = 2;
+  optional string nulls = 3;
+}
+
+message ListRes {
+  repeated Locale list = 1;
+  int32 totalCount = 2;
+}
+
+message OneReq {
+  string id = 1;
+}
+ 
+message OneRes {
+  Locale node = 1;
+}

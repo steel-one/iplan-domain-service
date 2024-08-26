@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package notification;
+
+service NotificationGrpcService {
+  rpc List (ListReq) returns (ListRes);
+  rpc One (OneReq) returns (OneRes);
+  rpc Create (Notification) returns (Notification);
+  rpc Update (Notification) returns (Notification);
+}
+
+message Notification {
+  string id = 1;
+  string title = 2;
+  string body = 3;
+  string from = 4;
+  string to = 5;
+}
+
+message ListReq {
+  repeated string ids = 1;
+  optional string search = 2;
+  optional Paginate paginate = 3;
+  optional Order orderBy = 4;
+}
+
+message Paginate {
+  optional int32 page = 1;
+  optional int32 perPage = 2;
+}
+
+message Order {
+  optional string sort = 1;
+  optional string order = 2;
+  optional string nulls = 3;
+}
+
+message ListRes {
+  repeated Notification list = 1;
+  int32 totalCount = 2;
+}
+
+message OneReq {
+  string id = 1;
+}
+
+message OneRes {
+  Notification notification = 1;
+}
